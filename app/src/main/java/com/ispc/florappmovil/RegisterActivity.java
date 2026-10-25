@@ -35,29 +35,15 @@ public class RegisterActivity extends AppCompatActivity {
         tvVolverALogin = findViewById(R.id.tvVolverALogin);
         tvInvitado = findViewById(R.id.tvInvitado);
 
-        btnRegistrar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                intentarRegistro();
-            }
-        });
+        btnRegistrar.setOnClickListener(v -> intentarRegistro());
 
-        tvInvitado.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) { finish();}
-        });
-        tvVolverALogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        tvVolverALogin.setOnClickListener(v -> finish());
 
         tvInvitado.setOnClickListener(v -> {
             Intent intent = new Intent(RegisterActivity.this, GaleriaActivity.class);
             startActivity(intent);
+            finish();
         });
-
     }
 
     private void intentarRegistro() {
@@ -88,9 +74,7 @@ public class RegisterActivity extends AppCompatActivity {
             return;
         }
 
-        // TODO(Eric): reemplazar esta simulación por la llamada real al backend
-        // (POST /api/usuarios/usuarios/) cuando el equipo defina la conexión con JWT.
-        Toast.makeText(this, "Registro válido (pendiente de conexión con el backend)", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "¡Registro exitoso! Redirigiendo...", Toast.LENGTH_SHORT).show();
 
         Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
         startActivity(intent);

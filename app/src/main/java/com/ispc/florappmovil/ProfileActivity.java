@@ -1,6 +1,7 @@
 package com.ispc.florappmovil;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
@@ -9,7 +10,6 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class ProfileActivity extends AppCompatActivity {
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,8 +32,13 @@ public class ProfileActivity extends AppCompatActivity {
         });
 
         btnCerrar.setOnClickListener(v -> {
+            // Limpiamos la sesión guardada al salir
+            SharedPreferences preferences = getSharedPreferences("AppSession", MODE_PRIVATE);
+            preferences.edit().clear().apply();
+
             Intent intent = new Intent(ProfileActivity.this, IngresoActivity.class);
             startActivity(intent);
+            finish();
         });
     }
 }

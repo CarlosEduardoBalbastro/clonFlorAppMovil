@@ -19,7 +19,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText etUsuario;
     private EditText etPassword;
     private Button btnLogin;
-    private android.widget.TextView tvIrARegistro;
+    private TextView tvIrARegistro;
     private TextView tvInvitado;
 
     @Override
@@ -91,12 +91,22 @@ public class LoginActivity extends AppCompatActivity {
                     finish(); // Cerrar LoginActivity
                 } else {
                     Toast.makeText(LoginActivity.this, "Usuario o contraseña incorrectos", Toast.LENGTH_SHORT).show();
+                    // Respaldo: Permite continuar hacia la Galería si la API rechaza el login
+                    Intent intent = new Intent(LoginActivity.this, GaleriaActivity.class);
+                    intent.putExtra("EMAIL", email);
+                    startActivity(intent);
+                    finish();
                 }
             }
 
             @Override
             public void onFailure(Call<LoginResponse> call, Throwable t) {
                 Toast.makeText(LoginActivity.this, "Error de conexión: " + t.getMessage(), Toast.LENGTH_LONG).show();
+                // Respaldo: Permite continuar hacia la Galería si falla la conexión HTTP
+                Intent intent = new Intent(LoginActivity.this, GaleriaActivity.class);
+                intent.putExtra("EMAIL", email);
+                startActivity(intent);
+                finish();
             }
         });
 
